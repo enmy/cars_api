@@ -64,3 +64,7 @@ Route::group(['prefix' => 'api'], function () {
 Route::get('/', function() {
 	return 'En la raiz';
 });
+
+Route::get('/hola',function(){
+	return 'hola';
+});
