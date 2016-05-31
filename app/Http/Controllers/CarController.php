@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use Auth;
 use App\Car;
+use Validator;
 
 class CarController extends Controller
 {
@@ -24,7 +25,7 @@ class CarController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json(['status' => 'failed', 'mensaje' => 'error de validacion', 'errors' => $validator->errors]);
+            return response()->json(['status' => 'failed', 'mensaje' => 'error de validacion', 'errors' => $validator->errors()]);
         }
 
     	return Car::create([
