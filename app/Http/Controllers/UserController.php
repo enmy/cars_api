@@ -8,13 +8,14 @@ use App\Http\Requests;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class UserController extends Controller
 {
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|numeric',
+            'name' => 'required|min:2',
             'email' => 'required|email',
             'password' => 'required|min:4',
             'city' => 'required',
@@ -22,7 +23,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json(['status' => 'failed', 'mensaje' => 'error de validacion', 'errors' => $validator->errors]);
+            return response()->json(['status' => 'failed', 'mensaje' => 'error de validacion', 'errors' => $validator->errors()]);
         }
 
         return response()->json(
@@ -44,7 +45,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json(['status' => 'failed', 'mensaje' => 'error de validacion', 'errors' => $validator->errors]);
+            return response()->json(['status' => 'failed', 'mensaje' => 'error de validacion', 'errors' => $validator->errors()]);
         }
 
     	if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
